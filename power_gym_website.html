@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerFit Academia - Transforme seu Corpo, Transforme sua Vida</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #1a1a1a;
+            --accent-color: #f4f4f4;
+            --text-color: #333;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #ff6b35, #ff8c42);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 95vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .close:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .form-container {
+            padding: 40px 30px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background-color: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, #20c997, #28a745);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .whatsapp-icon {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .plans-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Services */
+        .services {
+            background: var(--accent-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Plans */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .plan-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .plan-card.featured {
+            border: 3px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .plan-header {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .plan-card.basic .plan-header {
+            background: linear-gradient(135deg, #6c757d, #868e96);
+        }
+
+        .plan-card.premium .plan-header {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: var(--secondary-color);
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .plan-period {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .plan-features {
+            padding: 2rem;
+        }
+
+        .plan-features ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .plan-features li:before {
+            content: "✓";
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .plan-button {
+            width: 100%;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .plan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--accent-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Contact */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-info i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .social-links {
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+
+        .close:hover {
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">PowerFit</a>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#services">Serviços</a></li>
+                <li><a href="#plans">Planos</a></li>
+                <li><a href="#gallery">Galeria</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>TRANSFORME SEU CORPO</h1>
+            <p>Sua jornada fitness começa aqui. Equipamentos modernos, instrutores qualificados e resultados garantidos.</p>
+            <a href="#plans" class="cta-button">COMECE AGORA</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2>Sobre a PowerFit</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Mais de 10 anos transformando vidas</h3>
+                <p>Na PowerFit Academia, acreditamos que fitness é mais que exercício - é um estilo de vida. Nossa missão é proporcionar um ambiente motivador e seguro para que você alcance seus objetivos.</p>
+                <p>Com equipamentos de última geração, profissionais qualificados e uma comunidade acolhedora, oferecemos tudo que você precisa para sua transformação.</p>
+                <p>Venha fazer parte da família PowerFit e descubra o seu potencial máximo!</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Academia PowerFit">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section services">
+        <h2>Nossos Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Musculação</h3>
+                <p>Equipamentos modernos e acompanhamento profissional para maximizar seus resultados em força e hipertrofia.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Cardio</h3>
+                <p>Área completa de exercícios cardiovasculares para melhorar sua resistência e queimar calorias.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-users"></i>
+                <h3>Aulas em Grupo</h3>
+                <p>Zumba, spinning, pilates e muito mais. Exercite-se de forma divertida e motivadora.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Personal Trainer</h3>
+                <p>Acompanhamento individualizado com profissionais especializados para resultados otimizados.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-apple-alt"></i>
+                <h3>Consultoria Nutricional</h3>
+                <p>Orientação nutricional especializada para complementar seus treinos e acelerar resultados.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-clock"></i>
+                <h3>Horário Flexível</h3>
+                <p>Aberto das 5h às 23h, todos os dias. Treine no horário que melhor se adapta à sua rotina.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section id="plans" class="section">
+        <h2>Escolha Seu Plano</h2>
+        <div class="plans-grid">
+            <div class="plan-card basic">
+                <div class="plan-header">
+                    <h3>BÁSICO</h3>
+                    <div class="plan-price">R$ 79</div>
+                    <div class="plan-period">/mês</div>
+                </div>
+                <div class="plan-features">
+                    <ul>
+                        <li>Acesso à musculação</li>
+                        <li>Área de cardio</li>
+                        <li>Vestiário completo</li>
+                        <li>Horário livre</li>
+                        <li>App PowerFit</li>
+                    </ul>
+                    <button class="plan-button" onclick="openModal('Básico', '79')">ESCOLHER PLANO</button>
+                </div>
+            </div>
+
+            <div class="plan-card featured">
+                <div class="plan-header">
+                    <h3>PREMIUM</h3>
+                    <div class="plan-price">R$ 129</div>
+                    <div class="plan-period">/mês</div>
+                </div>
+                <div class="plan-features">
+                    <ul>
+                        <li>Tudo do plano Básico</li>
+                        <li>Aulas em grupo ilimitadas</li>
+                        <li>Avaliação física mensal</li>
+                        <li>Plano de treino personalizado</li>
+                        <li>Suporte nutricional</li>
+                    </ul>
+                    <button class="plan-button" onclick="openModal('Premium', '129')">ESCOLHER PLANO</button>
+                </div>
+            </div>
+
+            <div class="plan-card premium">
+                <div class="plan-header">
+                    <h3>VIP</h3>
+                    <div class="plan-price">R$ 199</div>
+                    <div class="plan-period">/mês</div>
+                </div>
+                <div class="plan-features">
+                    <ul>
+                        <li>Tudo do plano Premium</li>
+                        <li>Personal Trainer (4x/mês)</li>
+                        <li>Consultoria nutricional</li>
+                        <li>Acesso prioritário</li>
+                        <li>Área VIP exclusiva</li>
+                    </ul>
+                    <button class="plan-button" onclick="openModal('VIP', '199')">ESCOLHER PLANO</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <h2>Nossa Academia</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Área de musculação">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Área de cardio">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Aula em grupo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Equipamentos modernos">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vestiário">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ambiente moderno">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2>Entre em Contato</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Informações</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Rua das Palmeiras, 123 - Centro, Teresina - PI</p>
+                <p><i class="fas fa-phone"></i> (86) 9 9999-8888</p>
+                <p><i class="fas fa-envelope"></i> contato@powerfitacademia.com.br</p>
+                <p><i class="fas fa-clock"></i> Segunda a Domingo: 5h às 23h</p>
+                
+                <h3 style="margin-top: 2rem;">Siga-nos</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="contact-map">
+                <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Localização" style="width: 100%; border-radius: 15px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo" style="font-size: 2.5rem; margin-bottom: 1rem;">PowerFit</div>
+            <p>Transformando vidas através do fitness desde 2013</p>
+            <p>&copy; 2025 PowerFit Academia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal do Formulário -->
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="modal-title">Solicitar Plano</div>
+                <div class="modal-subtitle" id="selectedPlan"></div>
+            </div>
+            <div class="form-container">
+                <form id="planForm">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo *</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone">Telefone *</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="idade">Idade</label>
+                        <input type="number" id="idade" name="idade" min="16" max="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="objetivo">Objetivo Principal</label>
+                        <select id="objetivo" name="objetivo">
+                            <option value="">Selecione seu objetivo</option>
+                            <option value="Emagrecimento">Emagrecimento</option>
+                            <option value="Ganho de massa muscular">Ganho de massa muscular</option>
+                            <option value="Condicionamento físico">Condicionamento físico</option>
+                            <option value="Reabilitação">Reabilitação</option>
+                            <option value="Bem-estar geral">Bem-estar geral</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experiencia">Experiência com Academia</label>
+                        <select id="experiencia" name="experiencia">
+                            <option value="">Selecione</option>
+                            <option value="Iniciante">Iniciante (nunca pratiquei)</option>
+                            <option value="Básico">Básico (até 1 ano)</option>
+                            <option value="Intermediário">Intermediário (1-3 anos)</option>
+                            <option value="Avançado">Avançado (mais de 3 anos)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="observacoes">Observações ou Dúvidas</label>
+                        <textarea id="observacoes" name="observacoes" placeholder="Conte-nos mais sobre seus objetivos ou tire suas dúvidas..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">
+                        <span class="whatsapp-icon">📱</span>
+                        Enviar via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedPlan = '';
+        let selectedPrice = '';
+
+        // Número do WhatsApp (substitua pelo número real)
+        const whatsappNumber = '5511999999999'; // Formato: código do país + DDD + número
+
+        function openModal(planName, planPrice) {
+            selectedPlan = planName;
+            selectedPrice = planPrice;
+            document.getElementById('selectedPlan').textContent = `Plano ${planName} - ${planPrice}/mês`;
+            document.getElementById('formModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('formModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('planForm').reset();
+        }
+
+        // Fechar modal clicando fora dele
+        window.onclick = function(event) {
+            const modal = document.getElementById('formModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Máscara para telefone
+        document.getElementById('telefone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 11) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (value.length >= 7) {
+                value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+            } else if (value.length >= 3) {
+                value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+            }
+            e.target.value = value;
+        });
+
+        // Envio do formulário
+        document.getElementById('planForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // Validação básica
+            if (!data.nome || !data.telefone || !data.email) {
+                alert('Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+
+            // Montar mensagem para WhatsApp
+            let message = `🏋️ *SOLICITAÇÃO DE PLANO - ACADEMIA*\n\n`;
+            message += `📋 *Plano Escolhido:* ${selectedPlan}\n`;
+            message += `💰 *Valor:* ${selectedPrice}/mês\n\n`;
+            message += `👤 *DADOS PESSOAIS:*\n`;
+            message += `• Nome: ${data.nome}\n`;
+            message += `• Telefone: ${data.telefone}\n`;
+            message += `• E-mail: ${data.email}\n`;
+            
+            if (data.idade) {
+                message += `• Idade: ${data.idade} anos\n`;
+            }
+            
+            if (data.objetivo) {
+                message += `• Objetivo: ${data.objetivo}\n`;
+            }
+            
+            if (data.experiencia) {
+                message += `• Experiência: ${data.experiencia}\n`;
+            }
+            
+            if (data.observacoes) {
+                message += `\n💬 *Observações:*\n${data.observacoes}\n`;
+            }
+            
+            message += `\n⏰ *Enviado em:* ${new Date().toLocaleString('pt-BR')}\n`;
+            message += `\n_Aguardo contato para finalizar a matrícula! 😊_`;
+
+            // Codificar mensagem para URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Montar URL do WhatsApp
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            // Abrir WhatsApp
+            window.open(whatsappURL, '_blank');
+            
+            // Fechar modal
+            closeModal();
+            
+            // Mostrar confirmação
+            setTimeout(() => {
+                alert('Redirecionando para o WhatsApp! Se não abriu automaticamente, verifique se há bloqueador de pop-ups.');
+            }, 500);
+        });
+
+        // Animação de entrada dos cards
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.plan-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(50px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+        });
+    </script>
